@@ -4,28 +4,21 @@ using UnityEngine.InputSystem;
 public class CustomCharacterController : MonoBehaviour
 {
 	[SerializeField]
-	public float LinearSpeed = 5f;
-	[SerializeField]
-	public float AngularSpeed = 5f;
-	[SerializeField]
 	private Rigidbody _rigidBody;
 
-	private InputAction _moveAction;
+	private WalkAction _walkAction;
+	private LookAction _lookAction;
+	private JumpAction _jumpAction;
+	private DashAction _dashAction;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
-		_moveAction = InputSystem.actions.FindAction("Move");
-	}
+		_walkAction = new WalkAction(InputSystem.actions.FindAction("Move"), _rigidBody);
+		_lookAction = new LookAction(InputSystem.actions.FindAction("Look"), _rigidBody);
+		_jumpAction = new JumpAction(InputSystem.actions.FindAction("Jump"), _rigidBody);
+		_dashAction = new DashAction(InputSystem.actions.FindAction("Dash"), _rigidBody);
 
-	// Update is called once per frame
-	void Update()
-	{
-		Vector2 moveValue = _moveAction.ReadValue<Vector2>();
-		
-		_rigidBody.angularVelocity = Vector3.up * moveValue.x * AngularSpeed;
-		_rigidBody.linearVelocity = _rigidBody.transform.forward * moveValue.y * LinearSpeed;
-
-			
+		_walkAction.AddBlockingMovementAction(_dashAction);
 	}
 }

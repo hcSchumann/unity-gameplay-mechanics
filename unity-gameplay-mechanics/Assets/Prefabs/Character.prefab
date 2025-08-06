@@ -217,9 +217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e5e856c1e800a4eb1bcd53b8065a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidBody: {fileID: 4303171856954404904}
   LinearSpeed: 10
   AngularSpeed: 2
-  _rigidBody: {fileID: 4303171856954404904}
+  JumpForce: 500
+  DashImpulse: 500
 --- !u!1 &2901951851531256051
 GameObject:
   m_ObjectHideFlags: 0
